@@ -1335,32 +1335,53 @@ footer p {
 
 /* ---------- VÙNG ẢNH ---------- */
 
+/* =============================================================
+   ẢNH TRANG CON
+   Hiển thị toàn bộ ảnh, không crop, không nền phía sau
+   ============================================================= */
+
 .event-image {
-    position: relative;
-    min-height: 500px;
-
-    overflow: hidden;
-    border-radius: 16px;
-
-    background: rgba(255, 255, 255, 0.04);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
-}
-
-
-.event-image img {
     width: 100%;
-    height: 100%;
 
-    position: absolute;
-    inset: 0;
+    /* Không ép chiều cao cố định */
+    min-height: unset;
+    height: auto;
 
-    object-fit: cover;
-    transition: transform 0.6s var(--ease);
+    /* Không cắt ảnh */
+    overflow: visible;
+
+    /* Bỏ nền và hiệu ứng khung */
+    background: none;
+    box-shadow: none;
+
+    /* Giữ bo góc nhẹ cho ảnh */
+    border-radius: 16px;
 }
 
 
+/* Ảnh tự co giãn theo đúng tỷ lệ gốc */
+.event-image img {
+    display: block;
+
+    width: 100%;
+    height: auto;
+
+    /* Không dùng absolute nữa */
+    position: relative;
+    inset: auto;
+
+    /* Luôn hiển thị toàn bộ ảnh */
+    object-fit: contain;
+
+    border-radius: inherit;
+
+    transition: transform 0.4s var(--ease);
+}
+
+
+/* Hiệu ứng hover nhẹ, không zoom quá mức gây cảm giác crop */
 .event-image:hover img {
-    transform: scale(1.04);
+    transform: scale(1.01);
 }
 
 
@@ -1520,7 +1541,9 @@ footer p {
     }
 
     .event-image {
-        min-height: 380px;
+        width: 100%;
+        min-height: unset;
+        height: auto;
     }
 
     .page-header {
@@ -1551,7 +1574,10 @@ footer p {
     }
 
     .event-image {
-        min-height: 260px;
+        width: 100%;
+        min-height: unset;
+        height: auto;
+
         border-radius: 12px;
     }
 
