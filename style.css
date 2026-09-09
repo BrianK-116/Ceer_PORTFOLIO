@@ -1,0 +1,1630 @@
+/* =============================================================
+   CEERUTE — BAN SỰ KIỆN / ĐỐI NGOẠI
+   File CSS chính của toàn bộ website.
+
+   Mục lục (Ctrl+F để nhảy nhanh):
+     1. ROOT / BIẾN DÙNG CHUNG
+     2. RESET & BASE
+     3. NAVBAR (menu trên cùng)
+     4. HERO (banner đầu trang chủ)
+     5. EXPLORE SECTION (lưới 4 thư mục)
+     6. ABOUT SECTION (giới thiệu ngắn ở trang chủ)
+     7. FOOTER (chân trang chủ)
+     8. MODAL "Đang phát triển"
+     9. HIỆU ỨNG XUẤT HIỆN KHI CUỘN (scroll-reveal)
+    10. RESPONSIVE — TRANG CHỦ
+    11. SUB-PAGE — khung chung cho các trang con
+    12. NỘI DUNG SỰ KIỆN / HOẠT ĐỘNG / KHOẢNH KHẮC / GIỚI THIỆU
+    13. RESPONSIVE — TRANG CON
+    14. TIỆN ÍCH NHỎ (scrollbar, selection, focus...)
+   ============================================================= */
+
+
+/* =============================================================
+   1. ROOT / BIẾN DÙNG CHUNG
+   Khai báo màu sắc, khoảng cách, hiệu ứng dùng lặp lại nhiều nơi.
+   Muốn đổi tông màu toàn site chỉ cần sửa ở đây.
+   ============================================================= */
+
+:root {
+
+    /* Nền */
+    --bg: #050b14;
+    --bg-light: #08192a;
+
+    /* Xanh dương thương hiệu */
+    --blue-dark: #071a2d;
+    --blue: #0d5c96;
+    --blue-light: #3eb8ff;
+
+    /* Chữ */
+    --text: #f3f7fb;
+    --text-muted: #9fb0c0;
+
+    /* Viền / đường kẻ mờ */
+    --border: rgba(90, 180, 255, 0.18);
+
+    /* Bo góc & hiệu ứng dùng chung để đồng bộ toàn site */
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    --radius-lg: 18px;
+
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --transition-fast: 0.25s var(--ease);
+    --transition: 0.4s var(--ease);
+
+    --glow: 0 0 25px rgba(62, 184, 255, 0.25);
+
+}
+
+
+/* =============================================================
+   2. RESET & BASE
+   Xoá margin/padding mặc định của trình duyệt, thiết lập font nền.
+   ============================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html {
+    /* Cuộn mượt khi bấm link nội bộ (#home, #explore...) */
+    scroll-behavior: smooth;
+}
+
+
+body {
+
+    font-family: "Be Vietnam Pro", sans-serif;
+
+    background: var(--bg);
+    color: var(--text);
+
+    /* Chặn thanh cuộn ngang phát sinh do các hiệu ứng absolute/translate */
+    overflow-x: hidden;
+
+    /* Chữ nét mượt hơn trên macOS/iOS */
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+
+img {
+    /* Ảnh không tự tràn khỏi khung chứa trên mọi kích thước màn hình */
+    max-width: 100%;
+}
+
+
+/* =============================================================
+   3. NAVBAR
+   Thanh điều hướng cố định trên cùng, nền mờ (glassmorphism).
+   ============================================================= */
+
+.navbar {
+
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 72px;
+
+    padding: 0 6%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    z-index: 1000;
+
+    background: rgba(5, 11, 20, 0.65);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+
+    /* Đổi nền mượt khi JS toggle màu lúc cuộn (xem script.js) */
+    transition: background var(--transition-fast);
+}
+
+
+/* ---------- BRAND (logo + tên ban) ---------- */
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    text-decoration: none;
+    color: white;
+}
+
+
+.brand-logo {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+}
+
+
+.brand-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    /* Tăng nhẹ so với bản gốc (8px) để dễ đọc hơn trên desktop */
+    font-size: 10px;
+    letter-spacing: 2px;
+
+    color: #cbd6df;
+}
+
+
+.brand-text strong {
+    font-size: 12px;
+    letter-spacing: 2px;
+}
+
+
+/* ---------- NAV LINKS ---------- */
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+}
+
+
+.nav-links a {
+    position: relative;
+
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 13px;
+
+    transition: color var(--transition-fast);
+}
+
+/* Gạch chân mảnh mọc dần khi hover — tạo cảm giác tinh tế, "bắt mắt" hơn */
+.nav-links a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+
+    width: 0;
+    height: 1px;
+
+    background: var(--blue-light);
+    transition: width var(--transition-fast);
+}
+
+
+.nav-links a:hover {
+    color: white;
+}
+
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+
+/* ---------- LOGIN BUTTON ---------- */
+
+.login-btn {
+    padding: 10px 20px;
+
+    border-radius: 7px;
+    border: 1px solid rgba(62, 184, 255, 0.55);
+
+    background: rgba(10, 40, 65, 0.35);
+    color: white;
+
+    font-family: inherit;
+    font-size: 13px;
+
+    cursor: pointer;
+    transition: background var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+
+.login-btn:hover {
+    background: var(--blue);
+    box-shadow: 0 0 25px rgba(62, 184, 255, 0.2);
+}
+
+
+/* ---------- NHÓM BÊN PHẢI NAVBAR (nút đăng nhập + hamburger) ---------- */
+
+.navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+
+/* ---------- NÚT HAMBURGER (chỉ hiện trên mobile, xem media query bên dưới) ---------- */
+
+.menu-toggle {
+    display: none;
+
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+
+    width: 40px;
+    height: 40px;
+
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 7px;
+    background: rgba(10, 40, 65, 0.35);
+
+    cursor: pointer;
+}
+
+
+.menu-toggle span {
+    width: 18px;
+    height: 2px;
+
+    background: white;
+    border-radius: 2px;
+
+    transition: transform var(--transition-fast), opacity var(--transition-fast);
+}
+
+/* Biến 3 gạch thành dấu "X" khi menu đang mở */
+.menu-toggle[aria-expanded="true"] span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.menu-toggle[aria-expanded="true"] span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle[aria-expanded="true"] span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+
+/* =============================================================
+   4. HERO
+   Banner lớn ở đầu trang chủ: ảnh tập thể mờ phía sau + tiêu đề lớn.
+   ============================================================= */
+
+.hero {
+    position: relative;
+
+    min-height: 100vh;
+    /* Dự phòng cho trình duyệt di động hỗ trợ đơn vị viewport động,
+       tránh bị thanh địa chỉ che mất nội dung khi cuộn trên điện thoại */
+    min-height: 100svh;
+
+    overflow: hidden;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* Lớp gradient nền dưới cùng */
+.hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+
+    background:
+        radial-gradient(circle at 50% 10%, rgba(24, 93, 145, 0.22), transparent 38%),
+        radial-gradient(circle at 10% 60%, rgba(11, 66, 110, 0.2), transparent 35%),
+        linear-gradient(to bottom, #071525, #03080f);
+}
+
+
+/* Ảnh tập thể làm nền, mờ và tối để không lấn chữ */
+.team-background {
+    position: absolute;
+    z-index: 1;
+
+    left: 50%;
+    bottom: -8%;
+
+    width: min(1450px, 120vw);
+
+    transform: translateX(-50%);
+    pointer-events: none;
+}
+
+
+.team-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+
+    /* Làm ảnh hoà vào background */
+    filter: blur(1.2px) brightness(0.92) contrast(0.95) saturate(0.8);
+    opacity: 0.58;
+    transform: scale(1.02);
+}
+
+
+/* Lớp phủ tối giúp chữ luôn đọc rõ trên mọi vùng ảnh */
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+
+    background:
+        linear-gradient(to bottom,
+            rgba(4, 10, 18, 0.2) 0%,
+            rgba(4, 10, 18, 0.45) 40%,
+            rgba(4, 10, 18, 0.78) 82%,
+            #050b14 100%),
+        linear-gradient(to right,
+            rgba(5, 11, 20, 0.55),
+            transparent 30%,
+            transparent 70%,
+            rgba(5, 11, 20, 0.55));
+}
+
+
+/* ---------- NỘI DUNG CHÍNH CỦA HERO ---------- */
+
+.hero-content {
+    position: relative;
+    z-index: 5;
+
+    width: 100%;
+    max-width: 1100px;
+
+    padding: 330px 20px 220px;
+    text-align: center;
+}
+
+
+.hero-tag {
+    margin-bottom: 20px;
+
+    color: #66c7ff;
+    font-weight: 600;
+
+    /* Co giãn theo bề rộng màn hình thay vì cố định 25px,
+       tránh bị vỡ dòng / quá to trên máy tính bảng nhỏ */
+    font-size: clamp(14px, 2.4vw, 25px);
+    letter-spacing: 4px;
+}
+
+
+.hero h1 {
+    font-size: clamp(40px, 6.3vw, 105px);
+    font-weight: 900;
+    line-height: 0.98;
+    letter-spacing: -2px;
+    text-transform: uppercase;
+}
+
+
+.hero h1 span {
+    display: block;
+    margin-top: 8px;
+
+    color: transparent;
+    -webkit-text-stroke: 1.5px #56bfff;
+
+    text-shadow: 0 0 25px rgba(56, 165, 240, 0.12);
+}
+
+
+.hero-description {
+    max-width: 620px;
+    margin: 28px auto 0;
+
+    color: rgba(220, 230, 240, 0.8);
+    font-size: clamp(13px, 1.2vw, 15px);
+    line-height: 1.8;
+}
+
+
+/* ---------- NÚT KHÁM PHÁ ---------- */
+
+.explore-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+
+    margin-top: 28px;
+    padding: 15px 22px;
+
+    color: white;
+    text-decoration: none;
+
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+
+    border: 1px solid rgba(76, 180, 255, 0.45);
+    border-radius: 5px;
+
+    background: rgba(5, 20, 35, 0.45);
+    backdrop-filter: blur(10px);
+
+    transition: transform var(--transition-fast),
+                background var(--transition-fast),
+                box-shadow var(--transition-fast);
+}
+
+
+.explore-btn span {
+    font-size: 20px;
+    line-height: 1;
+
+    /* Mũi tên nảy nhẹ liên tục để hút mắt người dùng về phía "cuộn xuống" */
+    animation: bounce-down 1.8s ease-in-out infinite;
+}
+
+
+@keyframes bounce-down {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(5px); }
+}
+
+
+.explore-btn:hover {
+    transform: translateY(-4px);
+    background: rgba(25, 105, 165, 0.7);
+    box-shadow: 0 12px 35px rgba(0, 130, 255, 0.2);
+}
+
+
+/* ---------- LOGO LỚN MỜ PHÍA TRÊN HERO ---------- */
+
+.hero-big-logo {
+    position: absolute;
+    z-index: 6;
+
+    top: 85px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    pointer-events: none;
+}
+
+
+.hero-big-logo img {
+    width: clamp(90px, 25vw, 250px);
+    height: auto;
+    object-fit: contain;
+
+    filter:
+        drop-shadow(0 15px 30px rgba(0, 0, 0, 0.45))
+        drop-shadow(0 0 20px rgba(62, 184, 255, 0.15));
+}
+
+
+/* Dải mờ dưới cùng của hero, tạo chuyển tiếp mượt sang section kế tiếp */
+.hero-bottom-fade {
+    position: absolute;
+    z-index: 3;
+
+    left: 0;
+    bottom: 0;
+
+    width: 100%;
+    height: 40%;
+
+    background: linear-gradient(to bottom,
+        transparent,
+        rgba(5, 11, 20, 0.4),
+        #050b14);
+
+    pointer-events: none;
+}
+
+
+/* ---------- GỢI Ý CUỘN XUỐNG ---------- */
+
+.scroll-indicator {
+    position: absolute;
+    z-index: 6;
+
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+
+    color: var(--text-muted);
+    font-size: 9px;
+    letter-spacing: 3px;
+}
+
+
+.scroll-line {
+    width: 1px;
+    height: 35px;
+
+    background: linear-gradient(to bottom, #5cc7ff, transparent);
+}
+
+
+/* =============================================================
+   5. EXPLORE SECTION
+   Phần lưới 4 "thư mục" dẫn tới các trang con (Sự kiện, Hoạt động,
+   Khoảnh khắc, Về chúng tôi).
+   ============================================================= */
+
+.explore-section {
+    padding: 120px 8%;
+
+    background: linear-gradient(to bottom, #050b14, #081829);
+}
+
+
+.section-heading {
+    max-width: 700px;
+    margin-bottom: 70px;
+}
+
+
+.section-tag {
+    margin-bottom: 18px;
+
+    color: #5cc7ff;
+    font-size: 11px;
+    letter-spacing: 4px;
+}
+
+
+.section-heading h2 {
+    font-size: clamp(32px, 5vw, 70px);
+    line-height: 1.1;
+}
+
+
+.section-heading h2 span {
+    display: block;
+    color: #5cc7ff;
+}
+
+
+.section-heading p {
+    margin-top: 25px;
+
+    color: var(--text-muted);
+    line-height: 1.8;
+}
+
+
+/* ---------- LƯỚI THƯ MỤC ---------- */
+
+.folder-grid {
+    display: grid;
+    /* auto-fit + minmax giúp lưới tự co giãn mượt ở mọi bề rộng,
+       không cần chỉnh tay số cột tại từng breakpoint */
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 22px;
+}
+
+
+.folder-card {
+    display: flex;
+    flex-direction: column;
+
+    min-height: 290px;
+    padding: 25px;
+
+    color: white;
+    text-decoration: none;
+
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(100, 180, 255, 0.12);
+
+    background: linear-gradient(145deg,
+        rgba(15, 47, 75, 0.8),
+        rgba(4, 13, 23, 0.95));
+
+    transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+}
+
+
+.folder-card:hover,
+.folder-card:focus-visible {
+    transform: translateY(-10px);
+
+    border-color: rgba(92, 199, 255, 0.6);
+    box-shadow: 0 25px 50px rgba(0, 90, 170, 0.15);
+}
+
+/* Icon số thư mục hơi "nảy" lên khi hover cả thẻ, tăng cảm giác tương tác */
+.folder-card:hover .folder-body {
+    transform: translateY(-4px);
+}
+
+
+/* ---------- ICON THƯ MỤC (giống icon folder ngoài đời) ---------- */
+
+.folder {
+    position: relative;
+    height: 115px;
+    margin-bottom: 25px;
+}
+
+
+.folder-tab {
+    position: absolute;
+    top: 5px;
+    left: 12px;
+
+    width: 70px;
+    height: 25px;
+
+    border-radius: 8px 8px 0 0;
+    background: #1d628f;
+}
+
+
+.folder-body {
+    position: absolute;
+    top: 25px;
+    left: 0;
+
+    width: 100%;
+    height: 85px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 8px;
+
+    background: linear-gradient(135deg, #2474aa, #0a2b48);
+
+    transition: transform var(--transition);
+}
+
+
+.folder-body span {
+    font-size: 30px;
+    font-weight: 800;
+}
+
+
+.folder-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+
+.folder-info h3 {
+    margin-bottom: 12px;
+    font-size: 21px;
+}
+
+
+.folder-info p {
+    /* min-height giữ chiều cao thẻ đồng đều khi mô tả ngắn/dài khác nhau,
+       nhưng không ép cứng để không tràn chữ trên màn hình hẹp
+       (xem phần responsive bên dưới sẽ nới lỏng ở mobile) */
+    min-height: 55px;
+
+    color: var(--text-muted);
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+
+.folder-info span {
+    display: block;
+    margin-top: auto;
+    padding-top: 20px;
+
+    color: #5cc7ff;
+    font-size: 10px;
+    letter-spacing: 2px;
+
+    transition: gap var(--transition-fast);
+}
+
+
+/* =============================================================
+   6. ABOUT SECTION (trang chủ)
+   ============================================================= */
+
+.about-section {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    gap: 70px;
+
+    padding: 120px 10%;
+    min-height: 600px;
+
+    background: #06101c;
+    overflow: hidden;
+}
+
+
+.about-number {
+    flex-shrink: 0;
+
+    font-size: clamp(150px, 20vw, 300px);
+    font-weight: 900;
+    line-height: 1;
+
+    color: rgba(100, 180, 255, 0.05);
+}
+
+
+.about-content {
+    max-width: 650px;
+}
+
+
+.about-content h2 {
+    font-size: clamp(32px, 5vw, 70px);
+    line-height: 1.1;
+}
+
+
+.about-content h2 span {
+    display: block;
+    color: #5cc7ff;
+}
+
+
+.about-content > p {
+    margin-top: 25px;
+
+    color: var(--text-muted);
+    line-height: 1.8;
+}
+
+
+.about-btn {
+    margin-top: 30px;
+    padding: 14px 24px;
+
+    border: 1px solid rgba(92, 199, 255, 0.5);
+    background: transparent;
+    color: white;
+
+    font-family: inherit;
+    font-size: 13px;
+
+    cursor: pointer;
+    transition: background var(--transition-fast), transform var(--transition-fast);
+}
+
+
+.about-btn:hover {
+    background: rgba(30, 120, 190, 0.5);
+    transform: translateY(-2px);
+}
+
+
+/* =============================================================
+   7. FOOTER (trang chủ)
+   ============================================================= */
+
+footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 40px 8%;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    color: var(--text-muted);
+}
+
+
+footer strong {
+    color: white;
+}
+
+
+footer p {
+    margin-top: 8px;
+    font-size: 12px;
+}
+
+
+/* =============================================================
+   8. MODAL "ĐANG PHÁT TRIỂN"
+   Hiện ra khi bấm các nút chưa hoàn thiện (Đăng nhập, Tìm hiểu thêm...).
+   ============================================================= */
+
+.modal {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(10px);
+}
+
+
+.modal.active {
+    display: flex;
+}
+
+
+.modal-box {
+    position: relative;
+    width: min(450px, 100%);
+
+    padding: 45px;
+    text-align: center;
+
+    border-radius: var(--radius-lg);
+
+    background: #0a1b2b;
+    border: 1px solid rgba(92, 199, 255, 0.2);
+
+    /* Hiệu ứng nảy nhẹ khi modal xuất hiện, sinh động hơn so với hiện tức thì */
+    animation: modal-pop 0.3s var(--ease);
+}
+
+
+@keyframes modal-pop {
+    from { opacity: 0; transform: scale(0.92) translateY(10px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+
+    border: none;
+    background: transparent;
+    color: white;
+    font-size: 28px;
+
+    line-height: 1;
+    cursor: pointer;
+
+    /* Vùng bấm rộng hơn kích thước hiển thị — thân thiện với ngón tay trên điện thoại */
+    padding: 8px;
+}
+
+
+.modal-icon {
+    font-size: 45px;
+    margin-bottom: 20px;
+}
+
+
+.modal-box h2 {
+    margin-bottom: 15px;
+}
+
+
+.modal-box p {
+    color: var(--text-muted);
+    line-height: 1.7;
+}
+
+
+.modal-close-btn {
+    margin-top: 25px;
+    padding: 12px 30px;
+
+    border: none;
+    border-radius: 5px;
+
+    background: #1977b8;
+    color: white;
+
+    font-family: inherit;
+    font-size: 14px;
+
+    cursor: pointer;
+    transition: background var(--transition-fast);
+}
+
+
+.modal-close-btn:hover {
+    background: var(--blue-light);
+}
+
+
+/* =============================================================
+   9. HIỆU ỨNG XUẤT HIỆN KHI CUỘN (scroll-reveal)
+   Phần tử có class .reveal sẽ mờ/ẩn ban đầu, rồi trượt lên và hiện
+   rõ khi cuộn tới (điều khiển bởi IntersectionObserver trong script.js).
+   Tôn trọng người dùng bật "prefers-reduced-motion".
+   ============================================================= */
+
+.reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+}
+
+
+.reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Các thẻ thư mục xuất hiện lệch nhịp nhau một chút (so le thời gian)
+   thay vì cùng lúc, tạo cảm giác chuyển động tự nhiên và bắt mắt hơn. */
+.folder-grid .folder-card:nth-child(1) { transition-delay: 0s; }
+.folder-grid .folder-card:nth-child(2) { transition-delay: 0.08s; }
+.folder-grid .folder-card:nth-child(3) { transition-delay: 0.16s; }
+.folder-grid .folder-card:nth-child(4) { transition-delay: 0.24s; }
+
+
+@media (prefers-reduced-motion: reduce) {
+
+    .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+
+    .explore-btn span {
+        animation: none;
+    }
+
+}
+
+
+/* =============================================================
+   10. RESPONSIVE — TRANG CHỦ
+   Thứ tự từ rộng → hẹp. Mỗi breakpoint chỉ ghi đè phần cần đổi.
+   ============================================================= */
+
+/* ----- Máy tính bảng ngang / laptop nhỏ ----- */
+@media (max-width: 1000px) {
+
+    .about-section {
+        gap: 40px;
+    }
+
+}
+
+
+/* ----- Máy tính bảng đứng ----- */
+@media (max-width: 768px) {
+
+    .navbar {
+        padding: 0 20px;
+    }
+
+    .brand-text {
+        display: none;
+    }
+
+    /* Hiện nút hamburger, ẩn menu ngang mặc định */
+    .menu-toggle {
+        display: flex;
+    }
+
+    .nav-links {
+        position: absolute;
+        top: 72px;
+        left: 0;
+
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+
+        width: 100%;
+        padding: 10px 20px 22px;
+
+        background: rgba(5, 11, 20, 0.97);
+        backdrop-filter: blur(15px);
+
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+        /* Ẩn bằng cách thu chiều cao về 0 thay vì display:none,
+           để có thể chuyển động (trượt) mượt khi mở/đóng */
+        max-height: 0;
+        overflow: hidden;
+
+        transition: max-height var(--transition);
+    }
+
+    .nav-links a {
+        width: 100%;
+        padding: 12px 0;
+        font-size: 14px;
+    }
+
+    /* JS thêm class này khi người dùng bấm nút hamburger */
+    .nav-links.is-open {
+        max-height: 260px;
+    }
+
+    .team-background {
+        width: 170vw;
+        bottom: 5%;
+    }
+
+    .team-image {
+        filter: blur(2px) brightness(0.5) saturate(0.7);
+        opacity: 0.45;
+    }
+
+    .hero-content {
+        padding-bottom: 260px;
+    }
+
+    .about-section {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+
+        padding: 90px 7%;
+    }
+
+    /* Số watermark to chiếm nhiều chỗ, thu nhỏ để nội dung chính nổi bật hơn */
+    .about-number {
+        font-size: clamp(90px, 28vw, 160px);
+    }
+
+    footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+
+        text-align: left;
+    }
+
+}
+
+
+/* ----- Điện thoại (phổ biến, ~ dưới 550px) ----- */
+@media (max-width: 550px) {
+
+    .hero h1 {
+        font-size: clamp(38px, 13vw, 65px);
+    }
+
+    .hero-tag {
+        letter-spacing: 3px;
+    }
+
+    .hero-content {
+        padding: 260px 16px 220px;
+    }
+
+    .explore-section {
+        padding: 90px 6%;
+    }
+
+    .section-heading {
+        margin-bottom: 45px;
+    }
+
+    /* Trên 1 cột thì bỏ min-height cứng của mô tả để tránh khoảng trắng thừa */
+    .folder-info p {
+        min-height: 0;
+    }
+
+    .about-number {
+        /* Trên điện thoại nhỏ, ẩn hẳn số watermark trang trí để dồn không gian
+           cho nội dung quan trọng (tiêu đề, mô tả) */
+        display: none;
+    }
+
+    .modal-box {
+        padding: 32px 22px;
+    }
+
+}
+
+
+/* ----- Điện thoại rất nhỏ (iPhone SE và tương đương, < 400px) ----- */
+@media (max-width: 400px) {
+
+    .navbar {
+        padding: 0 16px;
+        height: 64px;
+    }
+
+    .nav-links {
+        top: 64px;
+    }
+
+    .brand-logo {
+        width: 38px;
+        height: 38px;
+    }
+
+    .login-btn {
+        padding: 8px 14px;
+        font-size: 12px;
+    }
+
+    .hero-content {
+        padding: 220px 14px 200px;
+    }
+
+    .hero-description {
+        font-size: 13px;
+    }
+
+    .explore-btn {
+        padding: 13px 18px;
+        gap: 10px;
+    }
+
+    .folder-card {
+        min-height: auto;
+        padding: 20px;
+    }
+
+    .about-content h2 {
+        letter-spacing: -1px;
+    }
+
+}
+
+
+/* =============================================================
+   11. SUB-PAGE — khung dùng chung cho các trang con
+   (about.html, activities.html, events.html, moments.html)
+   ============================================================= */
+
+.sub-page {
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+
+/* ---------- HEADER ĐẦU TRANG CON ---------- */
+
+.page-header {
+    position: relative;
+
+    min-height: 38vh;
+
+    display: flex;
+    align-items: flex-end;
+
+    padding: 110px 10% 55px;
+    overflow: hidden;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+
+.page-header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background: linear-gradient(to top,
+        rgba(3, 8, 15, 0.9),
+        rgba(3, 8, 15, 0.25));
+}
+
+
+.page-header-content {
+    position: relative;
+    z-index: 2;
+    max-width: 850px;
+}
+
+
+.page-back {
+    position: absolute;
+    top: 40px;
+    left: 10%;
+    z-index: 5;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    color: white;
+    text-decoration: none;
+
+    font-size: 13px;
+    letter-spacing: 2px;
+
+    opacity: 0.7;
+    transition: opacity var(--transition-fast), transform var(--transition-fast);
+}
+
+
+.page-back:hover {
+    opacity: 1;
+    transform: translateX(-5px);
+}
+
+
+.page-tag {
+    color: var(--page-accent);
+
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 4px;
+
+    margin-bottom: 20px;
+}
+
+
+.page-title {
+    font-size: clamp(42px, 9vw, 120px);
+    font-weight: 900;
+    line-height: 0.95;
+    letter-spacing: -3px;
+    text-transform: uppercase;
+
+    /* Cho phép từ dài tự xuống dòng thay vì tràn khỏi khung trên màn hình hẹp */
+    overflow-wrap: break-word;
+}
+
+
+.page-description {
+    max-width: 600px;
+    margin-top: 30px;
+
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.8;
+}
+
+
+/* =============================================================
+   12. NỘI DUNG SỰ KIỆN / HOẠT ĐỘNG / KHOẢNH KHẮC / GIỚI THIỆU
+   Khối lặp lại nhiều lần: 1 ảnh + 1 khối chữ, so le trái-phải.
+   ============================================================= */
+
+.content-list {
+    max-width: 1500px;
+    margin: auto;
+
+    padding: 70px 10%;
+}
+
+
+.event-item {
+    display: grid;
+
+    /* SỬA LỖI TRÀN NGANG: bản gốc dùng minmax(450px,...) + minmax(350px,...)
+       khiến 2 cột buộc rộng tối thiểu ~800px + gap, khi trừ đi padding 10%
+       hai bên của .content-list thì ở độ rộng máy tính bảng (~850–1050px)
+       nội dung KHÔNG ĐỦ CHỖ và bị tràn ra ngoài, sinh thanh cuộn ngang.
+       Dùng tỉ lệ fr thuần (không ép px tối thiểu) để lưới luôn co giãn
+       vừa khít mọi kích thước màn hình, không còn tràn. */
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 60px;
+
+    align-items: center;
+
+    margin-bottom: 90px;
+    padding-bottom: 90px;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+
+/* Đảo chiều ảnh/chữ cho các mục chẵn, tạo nhịp điệu khi cuộn trang */
+.event-item.reverse .event-image {
+    order: 2;
+}
+
+
+.event-item.reverse .event-text {
+    order: 1;
+}
+
+
+/* ---------- VÙNG ẢNH ---------- */
+
+.event-image {
+    position: relative;
+    min-height: 500px;
+
+    overflow: hidden;
+    border-radius: 16px;
+
+    background: rgba(255, 255, 255, 0.04);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+}
+
+
+.event-image img {
+    width: 100%;
+    height: 100%;
+
+    position: absolute;
+    inset: 0;
+
+    object-fit: cover;
+    transition: transform 0.6s var(--ease);
+}
+
+
+.event-image:hover img {
+    transform: scale(1.04);
+}
+
+
+/* Khung giữ chỗ khi CHƯA có ảnh thật — nhắc rõ vị trí cần thay ảnh */
+.image-placeholder {
+    position: absolute;
+    inset: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 15px;
+
+    color: rgba(255, 255, 255, 0.35);
+    border: 1px dashed rgba(255, 255, 255, 0.2);
+}
+
+
+.image-placeholder span {
+    font-size: 50px;
+}
+
+
+/* ---------- VÙNG CHỮ ---------- */
+
+.event-number {
+    font-size: 12px;
+    letter-spacing: 3px;
+
+    color: var(--page-accent);
+    margin-bottom: 20px;
+}
+
+
+.event-text h2 {
+    font-size: clamp(28px, 4vw, 60px);
+    line-height: 1.1;
+
+    margin-bottom: 25px;
+    overflow-wrap: break-word;
+}
+
+
+.event-text p {
+    color: rgba(255, 255, 255, 0.65);
+    line-height: 1.8;
+
+    margin-bottom: 25px;
+}
+
+
+/* Các "tag" thông tin (thời gian, địa điểm, vai trò...) */
+.event-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    margin-top: 30px;
+}
+
+
+.event-meta span {
+    padding: 8px 14px;
+    border-radius: 30px;
+
+    font-size: 12px;
+    color: var(--page-accent);
+
+    border: 1px solid color-mix(in srgb, var(--page-accent) 40%, transparent);
+    background: color-mix(in srgb, var(--page-accent) 10%, transparent);
+}
+
+
+/* ---------- MINI GALLERY (tuỳ chọn, dùng thêm nếu cần) ---------- */
+
+.mini-gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+
+    margin-top: 20px;
+}
+
+
+.mini-gallery img {
+    width: 100%;
+    height: 100px;
+
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+
+/* ---------- FOOTER CUỐI TRANG CON (kêu gọi hành động) ---------- */
+
+.page-footer {
+    padding: 60px 10%;
+    text-align: center;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+
+.page-footer h2 {
+    font-size: clamp(26px, 5vw, 60px);
+    margin-bottom: 20px;
+}
+
+
+.page-footer a {
+    display: inline-block;
+    padding: 15px 25px;
+
+    color: white;
+    text-decoration: none;
+
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+
+.page-footer a:hover {
+    background: white;
+    color: black;
+}
+
+
+/* =============================================================
+   13. RESPONSIVE — TRANG CON
+   ============================================================= */
+
+/* ----- Máy tính bảng: chuyển layout ảnh+chữ về 1 cột sớm hơn để
+   tránh cột chữ bị bóp quá hẹp (đọc khó) ----- */
+@media (max-width: 900px) {
+
+    .event-item {
+        grid-template-columns: 1fr;
+        gap: 30px;
+
+        margin-bottom: 70px;
+        padding-bottom: 70px;
+    }
+
+    /* Ở layout 1 cột, luôn hiện ảnh trước rồi tới chữ cho mọi mục,
+       kể cả các mục có class "reverse" — thứ tự đọc tự nhiên hơn */
+    .event-item.reverse .event-image {
+        order: 1;
+    }
+
+    .event-item.reverse .event-text {
+        order: 2;
+    }
+
+    .content-list {
+        padding: 60px 7%;
+    }
+
+    .event-image {
+        min-height: 380px;
+    }
+
+    .page-header {
+        padding: 130px 7% 50px;
+    }
+
+    .page-back {
+        left: 7%;
+    }
+
+}
+
+
+/* ----- Điện thoại ----- */
+@media (max-width: 550px) {
+
+    .page-header {
+        min-height: 32vh;
+        padding: 110px 6% 40px;
+    }
+
+    .page-back {
+        top: 28px;
+    }
+
+    .content-list {
+        padding: 50px 6%;
+    }
+
+    .event-image {
+        min-height: 260px;
+        border-radius: 12px;
+    }
+
+    .event-item {
+        margin-bottom: 55px;
+        padding-bottom: 55px;
+        gap: 22px;
+    }
+
+    .mini-gallery {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .page-footer {
+        padding: 50px 6%;
+    }
+
+}
+
+
+/* ----- Điện thoại rất nhỏ ----- */
+@media (max-width: 400px) {
+
+    .page-title {
+        letter-spacing: -1.5px;
+    }
+
+    .event-meta span {
+        font-size: 11px;
+        padding: 6px 12px;
+    }
+
+    .image-placeholder span {
+        font-size: 36px;
+    }
+
+}
+
+
+/* =============================================================
+   14. TIỆN ÍCH NHỎ — polish tổng thể cho toàn site
+   ============================================================= */
+
+/* Màu khi bôi đen (select) chữ, đồng bộ với tông thương hiệu */
+::selection {
+    background: rgba(62, 184, 255, 0.35);
+    color: #ffffff;
+}
+
+
+/* Thanh cuộn tuỳ biến trên trình duyệt hỗ trợ (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background: #123a58;
+    border-radius: 10px;
+    border: 2px solid var(--bg);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--blue);
+}
+
+
+/* Viền focus rõ ràng khi điều hướng bằng bàn phím — hỗ trợ tiếp cận (a11y) */
+a:focus-visible,
+button:focus-visible {
+    outline: 2px solid var(--blue-light);
+    outline-offset: 3px;
+}

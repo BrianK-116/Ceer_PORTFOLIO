@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <!-- Mô tả ngắn hiển thị trên kết quả tìm kiếm / khi chia sẻ link -->
+    <meta
+        name="description"
+        content="CEERUTE - Ban Sự Kiện & Đối Ngoại: nơi lưu giữ những sự kiện, hoạt động và khoảnh khắc đáng nhớ."
+    >
+
+    <!-- Màu thanh trạng thái trên trình duyệt di động (Android/iOS), đồng bộ tông nền tối của site -->
+    <meta name="theme-color" content="#050b14">
+
+    <title>CEERUTE | Ban Sự Kiện - Đối Ngoại</title>
+
+    <!-- Google Font -->
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=Caveat:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+</head>
+
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+    <!-- Ghi chú: đặt logo thật vào assets/images/logo.png và ảnh tập thể
+         vào assets/images/team.png (thư mục này đang trống, cần bổ sung ảnh). -->
+
+    <header class="navbar">
+
+        <a
+            href="#home"
+            class="brand"
+        >
+
+            <img
+                src="assets/images/logo.png"
+                alt="CEERUTE Logo"
+                class="brand-logo"
+                loading="eager"
+            >
+
+            <div class="brand-text">
+
+                <span>
+                    BAN SỰ KIỆN
+                </span>
+
+                <strong>
+                    ĐỐI NGOẠI
+                </strong>
+
+            </div>
+
+        </a>
+
+
+        <nav class="nav-links" id="navLinks">
+
+            <a href="#home">
+                Trang chủ
+            </a>
+
+            <a href="#explore">
+                Khám phá
+            </a>
+
+            <a href="#about">
+                Về chúng tôi
+            </a>
+
+        </nav>
+
+
+        <div class="navbar-right">
+
+            <button
+                class="login-btn coming-soon"
+            >
+                Đăng nhập
+            </button>
+
+            <!-- Nút hamburger: chỉ hiện trên điện thoại/tablet (xem CSS responsive)
+                 để người dùng mobile vẫn có thể mở menu điều hướng thay vì mất hẳn -->
+            <button
+                class="menu-toggle"
+                id="menuToggle"
+                aria-label="Mở menu điều hướng"
+                aria-expanded="false"
+                aria-controls="navLinks"
+            >
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================= HERO ================= -->
+
+    <main id="home">
+
+        <section class="hero">
+
+            <!-- Background gradient -->
+            <div class="hero-bg"></div>
+
+
+            <!-- TEAM IMAGE BACKGROUND -->
+
+            <div class="team-background">
+
+                <img
+                    src="assets/images/team.png"
+                    alt="Tập thể Ban Sự Kiện - Đối Ngoại"
+                    class="team-image"
+                >
+
+            </div>
+
+
+            <!-- Dark Overlay -->
+
+            <div class="hero-overlay"></div>
+
+
+            <!-- Decorative text -->
+
+            <div class="hero-big-logo">
+                <img
+                    src="assets/images/logo.png"
+                    alt="CEERUTE Logo"
+                >
+            </div>
+
+
+
+            <!-- Main Content -->
+
+            <div class="hero-content">
+
+                <p class="hero-tag">
+                    BAN SỰ KIỆN - ĐỐI NGOẠI
+                </p>
+
+
+                <h1>
+
+                    NƠI NHỮNG HÀNH TRÌNH
+
+                    <span>
+                        BẮT ĐẦU
+                    </span>
+                </h1>
+
+
+                <p class="hero-description">
+
+                    Mỗi sự kiện là một hành trình.
+                    Mỗi hành trình được tạo nên bởi những
+                    con người dám nghĩ, dám làm và dám xông pha.
+
+                </p>
+
+
+                <a
+                    href="#explore"
+                    class="explore-btn"
+                >
+
+                    KHÁM PHÁ HÀNH TRÌNH
+
+                    <span>
+                        ↓
+                    </span>
+
+                </a>
+
+            </div>
+
+
+            <!-- Bottom gradient -->
+
+            <div class="hero-bottom-fade"></div>
+
+
+            <!-- Scroll -->
+
+            <div class="scroll-indicator">
+
+                <span>
+                    SCROLL TO EXPLORE
+                </span>
+
+                <div class="scroll-line"></div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= EXPLORE ================= -->
+
+        <section
+            class="explore-section"
+            id="explore"
+        >
+
+            <div class="section-heading">
+
+                <p class="section-tag">
+                    KHÁM PHÁ
+                </p>
+
+
+                <h2>
+
+                    NHỮNG CÂU CHUYỆN
+
+                    <span>
+                        CHÚNG TÔI ĐÃ CÙNG ĐỒNG HÀNH
+                    </span>
+
+                </h2>
+
+
+                <p>
+
+                    Mỗi thư mục là một hành trình.
+                    Một không gian lưu giữ những sự kiện,
+                    hoạt động và khoảnh khắc của
+                    Ban Sự Kiện - Đối Ngoại.
+
+                </p>
+
+            </div>
+
+
+            <div class="folder-grid">
+
+
+                <!-- FOLDER 01 -->
+
+                <a
+                    href="pages/events.html"
+                    class="folder-card"
+                >
+
+                    <div class="folder">
+
+                        <div class="folder-tab"></div>
+
+                        <div class="folder-body">
+
+                            <span>
+                                01
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="folder-info">
+
+                        <h3>
+                            SỰ KIỆN
+                        </h3>
+
+                        <p>
+                            Những chương trình và sự kiện
+                            chúng tôi đã đồng hành.
+                        </p>
+
+                        <span>
+                            KHÁM PHÁ →
+                        </span>
+
+                    </div>
+
+                </a>
+
+
+                <!-- FOLDER 02 -->
+
+                <a
+                    href="pages/activities.html"
+                    class="folder-card"
+                >
+
+                    <div class="folder">
+
+                        <div class="folder-tab"></div>
+
+                        <div class="folder-body">
+
+                            <span>
+                                02
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="folder-info">
+
+                        <h3>
+                            HOẠT ĐỘNG
+                        </h3>
+
+                        <p>
+                            Những hành trình,
+                            thử thách và trải nghiệm.
+                        </p>
+
+                        <span>
+                            KHÁM PHÁ →
+                        </span>
+
+                    </div>
+
+                </a>
+
+
+                <!-- FOLDER 03 -->
+
+                <a
+                    href="pages/moments.html"
+                    class="folder-card"
+                >
+
+                    <div class="folder">
+
+                        <div class="folder-tab"></div>
+
+                        <div class="folder-body">
+
+                            <span>
+                                03
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="folder-info">
+
+                        <h3>
+                            KHOẢNH KHẮC
+                        </h3>
+
+                        <p>
+                            Những ký ức đáng nhớ
+                            trong suốt hành trình.
+                        </p>
+
+                        <span>
+                            KHÁM PHÁ →
+                        </span>
+
+                    </div>
+
+                </a>
+
+
+                <!-- FOLDER 04 -->
+
+                <a
+                    href="#about"
+                    class="folder-card"
+                >
+
+                    <div class="folder">
+
+                        <div class="folder-tab"></div>
+
+                        <div class="folder-body">
+
+                            <span>
+                                04
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="folder-info">
+
+                        <h3>
+                            VỀ CHÚNG TÔI
+                        </h3>
+
+                        <p>
+                            Những con người
+                            đứng phía sau hành trình.
+                        </p>
+
+                        <span>
+                            KHÁM PHÁ →
+                        </span>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= ABOUT ================= -->
+
+        <section
+            class="about-section"
+            id="about"
+        >
+
+            <div class="about-number">
+                01
+            </div>
+
+
+            <div class="about-content">
+
+                <p class="section-tag">
+
+                    BAN SỰ KIỆN - ĐỐI NGOẠI
+
+                </p>
+
+
+                <h2>
+
+                    CHÚNG TÔI KHÔNG CHỈ
+
+                    <span>
+                        TỔ CHỨC SỰ KIỆN.
+                    </span>
+
+                </h2>
+
+
+                <p>
+
+                    Đằng sau mỗi chương trình
+                    là hàng giờ chuẩn bị,
+                    những cuộc họp kéo dài
+                    và những con người cùng nhau
+                    biến một ý tưởng thành hiện thực.
+
+                </p>
+
+
+                <button
+                    class="about-btn coming-soon"
+                >
+
+                    TÌM HIỂU THÊM →
+
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <div>
+
+            <strong>
+                BAN SỰ KIỆN - ĐỐI NGOẠI
+            </strong>
+
+            <p>
+                Nơi những hành trình bắt đầu.
+            </p>
+
+        </div>
+
+
+        <p>
+            © 2026 CEERUTE
+        </p>
+
+    </footer>
+
+
+    <!-- ================= MODAL ================= -->
+
+    <div
+        class="modal"
+        id="comingSoonModal"
+    >
+
+        <div class="modal-box">
+
+            <button
+                class="close-modal"
+            >
+                ×
+            </button>
+
+
+            <div class="modal-icon">
+                🚧
+            </div>
+
+
+            <h2>
+                ĐANG PHÁT TRIỂN
+            </h2>
+
+
+            <p>
+
+                Tính năng này hiện đang được
+                xây dựng và sẽ sớm xuất hiện
+                trong phiên bản tiếp theo.
+
+            </p>
+
+
+            <button
+                class="modal-close-btn"
+            >
+                ĐÃ HIỂU
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
